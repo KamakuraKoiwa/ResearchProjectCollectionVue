@@ -21,21 +21,23 @@
             </el-form-item>
 
             <el-form-item label="专利名称">
-                <el-input style="width: 55%" v-model="patentList.patent_name" placeholder="请输入专利名称"></el-input>
+                <el-input style="width: 55%" v-model="patentList.patentName" placeholder="请输入专利名称"></el-input>
             </el-form-item>
 
             <el-form-item class="grid-content bg-purple" label="申请时间">
                   <el-date-picker
-                    v-model="value1"
+                    v-model="patentAppTime"
                     type="date"
+                    value-format="yyyy-MM-dd"
                     placeholder="选择日期">
                   </el-date-picker>
             </el-form-item> 
 
             <el-form-item class="grid-content bg-purple" label="公开时间">
                   <el-date-picker
-                    v-model="value1"
+                    v-model="patentPubTime"
                     type="date"
+                    value-format="yyyy-MM-dd"
                     placeholder="选择日期">
                   </el-date-picker>
             </el-form-item> 

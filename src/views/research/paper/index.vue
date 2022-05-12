@@ -27,7 +27,7 @@
 //   },
 //   //定义方法，进行请求接口调用
 //   methods: {
-//     //期刊列表
+//     //专利列表
 //     getlist(){ //当前页参数
 //       // this.current = page
 //       paper.getPaperAll()

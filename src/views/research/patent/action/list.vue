@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item label="公布时间">
         <el-date-picker
-          v-model="value1"
+          v-model="searchObj.patentPubTime"
           type="datetimerange"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -104,12 +104,12 @@ export default{
   },
   //在页面渲染之前调用created()，一般调用methods定义的方法，得到数据
   created() {
-    this.getlist()
+    this.getList()
   },
   //定义方法，进行请求接口调用
   methods: {
     //专利列表
-    getlist(page=1){ //当前页参数
+    getList(page=1){ //当前页参数
       this.current = page
       patent.getPatentList(this.current,this.limit,this.searchObj)
       .then(response => { //请求成功,response是接口返回数据
@@ -144,7 +144,7 @@ export default{
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          paper.removePatent(id)
+          patent.removePatent(id)
             .then(respense => {
               //提示信息
               this.$message({

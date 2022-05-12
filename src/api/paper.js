@@ -29,7 +29,6 @@ export default{
             url:`/ResearchProjectCollectionSpringBoot/getInfo/${id}`,
             method:'delete'
         })
-
     },
     //批量删除
 
