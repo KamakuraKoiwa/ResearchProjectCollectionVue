@@ -8,11 +8,11 @@ export default{
             data: searchObj  //使用json
         })
     },
-    getPatentAll(records){
+    getPatentAll(items){
         return request ({
             url:'/ResearchProjectCollectionSpringBoot/getPatentInfo/findAll',
             method:'get',
-            data: records  //使用json
+            data: items  //使用json
         })
     },
     //添加专利
@@ -31,6 +31,12 @@ export default{
         })
     },
     //批量删除
+    batchPatent(idList){
+        return request({
+            url:`/ResearchProjectCollectionSpringBoot/getPatentInfo/batchRemove`,
+            method:'delete'
+        })
+    },
 
     //锁定和取消锁定 P53
 

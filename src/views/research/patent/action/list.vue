@@ -1,10 +1,10 @@
 <template>
-  <div class="app-container">
-    <el-form :inline="true" :model="searchObj" class="demo-form-inline">
-      <el-form-item label="专利名称">
+  <div style="padding:30px;">
+    <el-form :inline="true" :model="searchObj" class="demo-form-inline" ref="searchObj">
+      <el-form-item prop="patentName" label="专利名称">
         <el-input v-model="searchObj.patentName" placeholder="专利名称"></el-input>
       </el-form-item>
-      <el-form-item label="公布时间">
+      <el-form-item prop="patentPubTime" label="公布时间">
         <el-date-picker
           v-model="searchObj.patentPubTime"
           type="datetimerange"
@@ -14,7 +14,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item >
-        <el-button type="primary" icon="el-icon-search">查询</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="getList()">查询</el-button>
         <el-button type="warning">清空</el-button>
       </el-form-item>
       <el-form-item >
@@ -42,8 +42,8 @@
     <el-table-column prop="patentName" show-overflow-tooltip align="center" label="专利名称"/>
     
     <!-- 
-    <el-table-column prop="patent_number" align="center" label="专利号"/>
-    <el-table-column prop="patent_author_name" show-overflow-tooltip align="center" label="作者"/>
+    <el-table-column prop="patent_numNber" align="center" label="专利号"/>
+    <el-table-column prop="authorName" show-overflow-tooltip align="center" label="作者"/>
     <el-table-column prop="authorNum" width="130px" align="center" label="作者总数"/>
     <el-table-column prop="authorSort" width="130px" align="center" label="本人排序"/>
     <el-table-column prop="patentCertificate"  align="center" label="证明材料"/> -->
@@ -68,14 +68,18 @@
       label="操作"
       width="200">
       <template slot-scope="scope">
-        <el-button type="success" size="mini" class="el-icon-view" @click="handleClick(scope.row)">查看</el-button>
+        <el-button type="success" size="mini" class="el-icon-view" @click="handleClick(scope.row)"></el-button>
+        <!-- 查看 -->
         <el-button type="warning" size="mini" icon="el-icon-edit" @click="editPatent(scope.row.patentId)"></el-button>
+        <!-- 修改 -->
         <el-button type="danger" size="mini" icon="el-icon-delete" @click="removePatent(scope.row.patentId)"></el-button>
+        <!-- 删除 -->
       </template>
     </el-table-column>
 
     </el-table>
 
+    <!-- 分页 -->
     <el-pagination
     :current-page="current"
     :page-size="limit"
@@ -95,10 +99,10 @@ export default{
   data() {
     return{
       current:1, //当前页
-      limit:10, //每页显示专利数
+      limit:5, //每页显示专利数
       searchObj:{}, //条件封装对象
       list:[], //每页数据集合
-      total:5 //总专利数
+      total:0 //总专利数
 
     }
   },

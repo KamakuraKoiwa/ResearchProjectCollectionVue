@@ -8,7 +8,7 @@
       <div class="text item">
         <el-form  :model="patentList" :label-position='left' label-width="80px">
             <el-form-item label="专利类型">
-                  <el-select v-model="patentList.patent_type" placeholder="请选择专利类型">
+                  <el-select v-model="patentList.patentType" placeholder="请选择专利类型">
                     <el-option label="PCT" value="PCT"></el-option>
                     <el-option label="发明专利" value="invention"></el-option>
                     <el-option label="实用新型专利" value="utilityModel"></el-option>
@@ -17,7 +17,7 @@
                   </el-select>
             </el-form-item>
             <el-form-item  label="专利号">
-                  <el-input style="width: 250px" v-model="patentList.patent_grant_number"></el-input>
+                  <el-input style="width: 250px" v-model="patentList.patentNumbNer"></el-input>
             </el-form-item>
 
             <el-form-item label="专利名称">
@@ -26,7 +26,7 @@
 
             <el-form-item class="grid-content bg-purple" label="申请时间">
                   <el-date-picker
-                    v-model="patentAppTime"
+                    v-model="patentList.patentAppTime"
                     type="date"
                     value-format="yyyy-MM-dd"
                     placeholder="选择日期">
@@ -35,75 +35,32 @@
 
             <el-form-item class="grid-content bg-purple" label="公开时间">
                   <el-date-picker
-                    v-model="patentPubTime"
+                    v-model="patentList.patentPubTime"
                     type="date"
                     value-format="yyyy-MM-dd"
                     placeholder="选择日期">
                   </el-date-picker>
             </el-form-item> 
-
-            <!-- <el-row>
-              <el-col :span="8">
-                <el-form-item label="专利类型">
-                  <el-select v-model="patentList.patent_type" placeholder="请选择专利类型">
-                    <el-option label="PCT" value="PCT"></el-option>
-                    <el-option label="发明专利" value="invention"></el-option>
-                    <el-option label="实用新型专利" value="utilityModel"></el-option>
-                    <el-option label="外观设计专利" value="industrialTesign"></el-option>
-                    <el-option label="其他" value="otherTypes"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
-                <el-form-item  label="专利号">
-                  <el-input style="width: 250px" v-model="patentList.patent_grant_number"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-form-item label="专利名称">
-                <el-input style="width: 55%" v-model="patentList.patent_name"></el-input>
-            </el-form-item>
-
-            <el-row>
-              <el-col :span="8">
-                <el-form-item class="grid-content bg-purple" label="申请时间">
-                  <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="选择日期">
-                  </el-date-picker>
-                </el-form-item> 
-              </el-col>
-              <el-col :span="8">
-                <el-form-item class="grid-content bg-purple" label="公开时间">
-                  <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="选择日期">
-                  </el-date-picker>
-                </el-form-item> 
-              </el-col>
-            </el-row> -->
-
+            
             <el-form-item label="所有单位">
-              <el-radio-group v-model="patentList.patent_unit">
+              <el-radio-group v-model="patentList.patentUnitName">
                 <el-radio label="1">西北大学</el-radio>
                 <el-radio label="2">其他</el-radio>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item label="单位名称">
-              <el-input v-if="patentList.patent_unit == 2" placeholder="请输入专利所属单位名称"></el-input>
-              <el-input v-if="patentList.patent_unit == 1" :disabled="true"></el-input>
+              <el-input v-if="patentList.patentUnitName == 2" placeholder="请输入专利所属单位名称"></el-input>
+              <el-input v-if="patentList.patentUnitName == 1" :disabled="true"></el-input>
             </el-form-item>
 
             
             <el-form-item label="本人排序">
-              <el-input v-model="patentList.patent_author_sort" placeholder="请输入本人排序"></el-input>
+              <el-input v-model="patentList.authorSort" placeholder="请输入本人排序"></el-input>
               
             </el-form-item>
             <el-form-item label="作者总数">
-              <el-input v-model="patentList.patent_author_num" placeholder="请输入作者总数"></el-input>
+              <el-input v-model="patentList.authorNum" placeholder="请输入作者总数"></el-input>
             </el-form-item>
            
             <el-form-item >
@@ -128,34 +85,123 @@
     <router-view />
   </div>
 </template>
+
+
+
+
+
 <script>
-  import Sticky from '@/components/Sticky' // 粘性header组件
-  export default {
-    data() {
-      return {
-        patentList: {
-          patent_app_time:'',
-          patent_pub_time:'',
-          patent_aut_time:'',
-          patent_type:'',
-          patent_name: '',
-          patent_grant_number:'',
-          patent_author_name: '',
-          patent_author_sort: '',
-          patent_prove_materials:'',
-          patent_status:'',  //审核状态： '1':通过, '-1':未通过, '0':正在审核
-          patent_unit:'1', //专利所有单位：'1':西北大学， '2':其他
-          patent_owner:''
-        }
+  import patent from '@/api/patent'
+  export default{
+    data(){
+      return{
+        patentList:{
+          patentType: '1',
+          patentUnitName: '1'
+        },
       }
     },
-    methods: {
-      onSubmit() {
-        console.log('submit!');
+    created(){
+      //获取路由id值
+      //调取接口得到专利信息
+      if(this.$route.params  && this.$route.params.id){
+        const id =  this.$route.params.id
+        this.getPatentInform(id)
       }
+
+    },
+    methods:{
+      //根据id查询
+      getPatentInform(patent_id){
+        patent.getPatentId(patent_id) 
+          .then(response => {
+            this.patentList = response.data
+        })
+      },
+      //添加
+      save(){
+        patent.addPatent(this.patentList)
+          .then(respense => {
+            //提示信息
+             this.$message({
+              type: 'success',
+              message: '专利信息录入成功!',
+            });
+            //跳转回列表页面
+            this.$router.push({path:'/research/patent/list'})
+          })
+      },
+      //修改
+      update(){
+        patent.updatePatent(this.patentList)
+          .then(respense => {
+            //提示信息
+             this.$message({
+              type: 'success',
+              message: '论文信息修改成功!',
+            });
+            //跳转回列表页面
+            this.$router.push({path:'/research/patent/list'})
+          })
+      },
+      //判断添加还是修改
+      saveOrUpdate(){
+        if(!this.$route.params.id){
+          this.save();
+        }else{
+          this.update();
+        }
+      },
+      //取消新增
+      cancel(){
+        this.$confirm('取消后编辑内容将丢失，确认取消?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            // 刷新页面
+            this.$router.push({path:'/research/patent/list'})
+          })
+                  
+      }
+    
     }
   }
+  
+  
 </script>
+
+
+
+
+// <script>
+//   import Sticky from '@/components/Sticky' // 粘性header组件
+//   export default {
+//     data() {
+//       return {
+//         patentList: {
+//           patent_app_time:'',
+//           patent_pub_time:'',
+//           patent_aut_time:'',
+//           patent_type:'',
+//           patent_name: '',
+//           patent_grant_number:'',
+//           patent_author_name: '',
+//           patent_author_sort: '',
+//           patent_prove_materials:'',
+//           patent_status:'',  //审核状态： '1':通过, '-1':未通过, '0':正在审核
+//           patent_unit:'1', //专利所有单位：'1':西北大学， '2':其他
+//           patent_owner:''
+//         }
+//       }
+//     },
+//     methods: {
+//       onSubmit() {
+//         console.log('submit!');
+//       }
+//     }
+//   }
+// </script>
 
 <style>
   .text {

@@ -31,6 +31,12 @@ export default{
         })
     },
     //批量删除
+    batchPaper(idList){
+        return request({
+            url:`/ResearchProjectCollectionSpringBoot/getInfo/batchRemove`,
+            method:'delete'
+        })
+    },
 
     //锁定和取消锁定 P53
 
