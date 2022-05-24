@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item >
         <el-button type="primary" icon="el-icon-search" @click="getList()">查询</el-button>
-        <el-button type="warning">清空</el-button>
+        <el-button type="warning" @click="resetForm('searchObj')">重置</el-button>
       </el-form-item>
       <el-form-item >
         <el-button type="success" icon="el-icon-circle-plus-outline" @click="addPatent" >新增</el-button>
@@ -23,6 +23,10 @@
       </el-form-item>
     </el-form>
     
+    <!-- 工具条 -->
+    <div>
+      <el-button type="danger" size="mini" @click="removeRows()">批量删除</el-button>
+    </div>
     
     <el-table :data='list' stripe border fit highlight-current-row style="width: 100%">
       <el-table-column
@@ -35,18 +39,16 @@
             <span>{{(current - 1) * limit + scope.$index + 1}}</span> 
           </template>
       </el-table-column>
-    <el-table-column sortable prop="patentAppTime" width="180px" align="center" label="申请时间"/>
+    <!--  <el-table-column sortable prop="patentAppTime" width="180px" align="center" label="申请时间"/>  -->
     <el-table-column sortable prop="patentPubTime" width="180px" align="center" label="公布时间"/>
-    <el-table-column prop="patentAutTime" width="180px" align="center" label="授权时间"/>
+    <!--  <el-table-column prop="patentAutTime" width="180px" align="center" label="授权时间"/>  -->
     <el-table-column prop="patentType" width="150px" align="center" label="发明类型"/>
     <el-table-column prop="patentName" show-overflow-tooltip align="center" label="专利名称"/>
-    
-    <!-- 
-    <el-table-column prop="patent_numNber" align="center" label="专利号"/>
+    <el-table-column prop="patentNumNber" align="center" label="专利号"/>
     <el-table-column prop="authorName" show-overflow-tooltip align="center" label="作者"/>
-    <el-table-column prop="authorNum" width="130px" align="center" label="作者总数"/>
+    <!--  <el-table-column prop="authorNum" width="130px" align="center" label="作者总数"/>  -->
     <el-table-column prop="authorSort" width="130px" align="center" label="本人排序"/>
-    <el-table-column prop="patentCertificate"  align="center" label="证明材料"/> -->
+    <!-- <el-table-column prop="patentCertificate"  align="center" label="证明材料"/>  -->
 
     <el-table-column prop="status"  width="140px" align="center" label="审核状态">
       <template slot-scope="scope">
@@ -141,7 +143,7 @@ export default{
        this.$router.push('edit/'+ id)
     },
     //删除
-    removePatent(id){
+    deletePatent(id){
       // alert(id)
       this.$confirm('是否删除该信息?', '提示', {
           confirmButtonText: '确定',

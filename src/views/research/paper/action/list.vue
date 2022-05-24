@@ -4,7 +4,7 @@
       <el-form-item prop="paperName" label="论文题目">
         <el-input v-model="searchObj.paperName" placeholder="论文名称"></el-input>
       </el-form-item>
-       <el-form-item prop="periodicalName" label="期刊名称">
+      <el-form-item prop="periodicalName" label="期刊名称">
         <el-input v-model="searchObj.periodicalName" placeholder="期刊名称"></el-input>
       </el-form-item>
       <el-form-item prop="paperDate" label="发表时间">
@@ -25,6 +25,10 @@
       </el-form-item>
     </el-form>
     
+    <!-- 工具条 -->
+    <div>
+      <el-button type="danger" size="mini" @click="removeRows()">批量删除</el-button>
+    </div>
     
     <el-table :data='list' stripe border fit highlight-current-row style="width: 100%">
       <el-table-column
@@ -142,7 +146,7 @@ export default{
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          paper.removePaper(id)
+          paper.deletePaper(id)
             .then(respense => {
               //提示信息
               this.$message({
@@ -155,6 +159,7 @@ export default{
                   
         });
     }
+
     
   }
 

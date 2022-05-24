@@ -2,8 +2,8 @@
   <div class="app-container" style="width: 100%; padding: 30px;">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>关键信息</span>
-        <el-button style="float: right; padding: 3px 0" type="text">保存</el-button>
+        <span>关键信息录入</span>
+        <el-button style="float: right; padding: 3px 0" type="text">保存草稿</el-button>
       </div>
       <div class="text item">
         <el-form  :model="patentList" :label-position='left' label-width="80px">
@@ -40,7 +40,16 @@
                     value-format="yyyy-MM-dd"
                     placeholder="选择日期">
                   </el-date-picker>
-            </el-form-item> 
+            </el-form-item>
+
+            <el-form-item class="grid-content bg-purple" label="授权时间">
+                  <el-date-picker
+                    v-model="patentList.patentAutTime"
+                    type="date"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择日期">
+                  </el-date-picker>
+            </el-form-item>
             
             <el-form-item label="所有单位">
               <el-radio-group v-model="patentList.patentUnitName">
@@ -53,14 +62,17 @@
               <el-input v-if="patentList.patentUnitName == 2" placeholder="请输入专利所属单位名称"></el-input>
               <el-input v-if="patentList.patentUnitName == 1" :disabled="true"></el-input>
             </el-form-item>
-
             
-            <el-form-item label="本人排序">
-              <el-input v-model="patentList.authorSort" placeholder="请输入本人排序"></el-input>
-              
-            </el-form-item>
             <el-form-item label="作者总数">
               <el-input v-model="patentList.authorNum" placeholder="请输入作者总数"></el-input>
+            </el-form-item>
+
+            <el-form-item label="作者编号">
+              <el-input style="width: 95%" v-model="patentList.authorId" placeholder="请输入作者编号"></el-input>
+            </el-form-item>
+
+            <el-form-item label="本人排序">
+              <el-input v-model="patentList.authorSort" placeholder="请输入本人排序"></el-input>
             </el-form-item>
            
             <el-form-item >
@@ -88,8 +100,6 @@
 
 
 
-
-
 <script>
   import patent from '@/api/patent'
   export default{
@@ -104,8 +114,8 @@
     created(){
       //获取路由id值
       //调取接口得到专利信息
-      if(this.$route.params  && this.$route.params.id){
-        const id =  this.$route.params.id
+      if(this.$route.params && this.$route.params.id){
+        const id = this.$route.params.id
         this.getPatentInform(id)
       }
 
@@ -138,7 +148,7 @@
             //提示信息
              this.$message({
               type: 'success',
-              message: '论文信息修改成功!',
+              message: '专利信息修改成功!',
             });
             //跳转回列表页面
             this.$router.push({path:'/research/patent/list'})
@@ -172,36 +182,6 @@
 </script>
 
 
-
-
-// <script>
-//   import Sticky from '@/components/Sticky' // 粘性header组件
-//   export default {
-//     data() {
-//       return {
-//         patentList: {
-//           patent_app_time:'',
-//           patent_pub_time:'',
-//           patent_aut_time:'',
-//           patent_type:'',
-//           patent_name: '',
-//           patent_grant_number:'',
-//           patent_author_name: '',
-//           patent_author_sort: '',
-//           patent_prove_materials:'',
-//           patent_status:'',  //审核状态： '1':通过, '-1':未通过, '0':正在审核
-//           patent_unit:'1', //专利所有单位：'1':西北大学， '2':其他
-//           patent_owner:''
-//         }
-//       }
-//     },
-//     methods: {
-//       onSubmit() {
-//         console.log('submit!');
-//       }
-//     }
-//   }
-// </script>
 
 <style>
   .text {

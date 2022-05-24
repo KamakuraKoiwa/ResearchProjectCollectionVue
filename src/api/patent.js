@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 export default{
-    getPatentList(current,limit,searchObj){
+    getPatentList(current,limit,rows){
         return request ({
             url:`/ResearchProjectCollectionSpringBoot/getPatentInfo/pageConditionFind/${current}/${limit}`,
             method:'post',
-            data: searchObj  //使用json
+            data: rows  //使用json
         })
     },
     getPatentAll(items){
@@ -34,7 +34,8 @@ export default{
     batchPatent(idList){
         return request({
             url:`/ResearchProjectCollectionSpringBoot/getPatentInfo/batchRemove`,
-            method:'delete'
+            method:'delete',
+            data:idList
         })
     },
 

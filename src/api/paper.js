@@ -34,7 +34,8 @@ export default{
     batchPaper(idList){
         return request({
             url:`/ResearchProjectCollectionSpringBoot/getInfo/batchRemove`,
-            method:'delete'
+            method:'delete',
+            data:idList
         })
     },
 

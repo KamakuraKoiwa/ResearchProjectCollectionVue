@@ -9,7 +9,7 @@
         <el-form  :model="paperList" label-width="80px">
           
            <!-- <el-form-item label="文章类型">
-              <el-select v-model="paperList.paper_type" >
+              <el-select v-model="paperList.paperType" >
                 <el-option label="期刊" value="1"></el-option>
                 <el-option label="会议" value="2"></el-option>
               </el-select>
@@ -87,6 +87,9 @@
     <router-view />
   </div>
 </template>
+
+
+
 <script>
   import paper from '@/api/paper'
   export default{
@@ -101,8 +104,8 @@
     created(){
       //获取路由id值
       //调取接口得到论文信息
-      if(this.$route.params  && this.$route.params.id){
-        const id =  this.$route.params.id
+      if(this.$route.params && this.$route.params.id){
+        const id = this.$route.params.id
         this.getPaperInform(id)
       }
 
