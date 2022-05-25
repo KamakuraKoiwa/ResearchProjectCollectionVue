@@ -17,7 +17,7 @@
                   </el-select>
             </el-form-item>
             <el-form-item  label="专利号">
-                  <el-input style="width: 250px" v-model="patentList.patentNumbNer"></el-input>
+                  <el-input style="width: 250px" v-model="patentList.patentId"></el-input>
             </el-form-item>
 
             <el-form-item label="专利名称">

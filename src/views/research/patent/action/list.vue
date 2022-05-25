@@ -44,7 +44,7 @@
     <!--  <el-table-column prop="patentAutTime" width="180px" align="center" label="授权时间"/>  -->
     <el-table-column prop="patentType" width="150px" align="center" label="发明类型"/>
     <el-table-column prop="patentName" show-overflow-tooltip align="center" label="专利名称"/>
-    <el-table-column prop="patentNumNber" align="center" label="专利号"/>
+    <el-table-column prop="patentId" align="center" label="专利号"/>
     <el-table-column prop="authorName" show-overflow-tooltip align="center" label="作者"/>
     <!--  <el-table-column prop="authorNum" width="130px" align="center" label="作者总数"/>  -->
     <el-table-column prop="authorSort" width="130px" align="center" label="本人排序"/>
