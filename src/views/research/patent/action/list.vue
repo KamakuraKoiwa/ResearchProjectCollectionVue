@@ -17,8 +17,8 @@
         <el-button type="primary" icon="el-icon-search" @click="getList()">查询</el-button>
         <el-button type="warning" @click="resetForm('searchObj')">重置</el-button>
       </el-form-item>
-      <el-form-item >
-        <el-button type="success" icon="el-icon-circle-plus-outline" @click="addPatent" >新增</el-button>
+      <el-form-item>
+        <el-button type="success" icon="el-icon-circle-plus-outline" @click="addPatent">新增</el-button>
         <div><router-view/></div>
       </el-form-item>
     </el-form>
@@ -36,7 +36,7 @@
             align="center">
           <template scope="scope">
             <!-- （当前页-1）* 每页条数 + 当前行数据的索引 -->
-            <span>{{(current - 1) * limit + scope.$index + 1}}</span> 
+            <span>{{(current - 1) * limit + scope.$index + 1}}</span>
           </template>
       </el-table-column>
     <!--  <el-table-column sortable prop="patentAppTime" width="180px" align="center" label="申请时间"/>  -->
@@ -52,10 +52,10 @@
 
     <el-table-column prop="status"  width="140px" align="center" label="审核状态">
       <template slot-scope="scope">
-        <el-tag type="success" v-if="scope.row.patent_status > '0'">
+        <el-tag type="success" v-if="scope.row.status > '0'">
           通过
         </el-tag>
-        <el-tag type="danger" v-else-if="scope.row.patent_status < '0'">
+        <el-tag type="danger" v-else-if="scope.row.status < '0'">
           未通过
         </el-tag>
         <el-tag type="primary" v-else>
@@ -143,14 +143,14 @@ export default{
        this.$router.push('edit/'+ id)
     },
     //删除
-    deletePatent(id){
+    removePatent(id){
       // alert(id)
       this.$confirm('是否删除该信息?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          patent.removePatent(id)
+          patent.deletePatent(id)
             .then(respense => {
               //提示信息
               this.$message({

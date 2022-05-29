@@ -21,7 +21,7 @@
         <el-button type="warning" @click="resetForm('searchObj')">重置</el-button>
       </el-form-item>
       <el-form-item >
-        <el-button type="success" icon="el-icon-circle-plus-outline" @click="addPaper" >新增</el-button>
+        <el-button type="success" icon="el-icon-circle-plus-outline" @click="addPaper">新增</el-button>
       </el-form-item>
     </el-form>
     
@@ -38,7 +38,7 @@
             align="center">
           <template scope="scope">
             <!-- （当前页-1）* 每页条数 + 当前行数据的索引 -->
-            <span>{{(current - 1) * limit + scope.$index + 1}}</span> 
+            <span>{{(current - 1) * limit + scope.$index + 1}}</span>
           </template>
       </el-table-column>
       <el-table-column sortable prop="paperDate" width="180px" align="center" label="发表时间"/>

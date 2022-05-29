@@ -6,24 +6,23 @@
         <el-button style="float: right; padding: 3px 0" type="text">保存草稿</el-button>
       </div>
       <div class="text item">
-        <el-form  :model="patentList" :label-position='left' label-width="80px">
+        <el-form  :model="patentList" label-width="80px">
             <el-form-item label="专利类型">
-                  <el-select v-model="patentList.patentType" placeholder="请选择专利类型">
-                    <el-option label="PCT" value="PCT"></el-option>
-                    <el-option label="发明专利" value="invention"></el-option>
-                    <el-option label="实用新型专利" value="utilityModel"></el-option>
-                    <el-option label="外观设计专利" value="industrialTesign"></el-option>
-                    <el-option label="其他" value="otherTypes"></el-option>
-                  </el-select>
+                <el-select v-model="patentList.patentType" placeholder="请选择专利类型">
+                  <el-option label="PCT" value="PCT"></el-option>
+                  <el-option label="发明专利" value="invention"></el-option>
+                  <el-option label="实用新型专利" value="utilityModel"></el-option>
+                  <el-option label="外观设计专利" value="industrialTesign"></el-option>
+                  <el-option label="其他" value="otherTypes"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item  label="专利号">
                   <el-input style="width: 250px" v-model="patentList.patentId"></el-input>
             </el-form-item>
-
             <el-form-item label="专利名称">
                 <el-input style="width: 55%" v-model="patentList.patentName" placeholder="请输入专利名称"></el-input>
             </el-form-item>
-
+  
             <el-form-item class="grid-content bg-purple" label="申请时间">
                   <el-date-picker
                     v-model="patentList.patentAppTime"
@@ -51,6 +50,7 @@
                   </el-date-picker>
             </el-form-item>
             
+
             <el-form-item label="所有单位">
               <el-radio-group v-model="patentList.patentUnitName">
                 <el-radio label="1">西北大学</el-radio>
@@ -76,8 +76,8 @@
             </el-form-item>
            
             <el-form-item >
-                <el-button type="primary">提交</el-button>
-                <el-button type="warning">取消</el-button>
+                <el-button type="primary" @click="saveOrUpdate">提交</el-button>
+                <el-button type="warning" @click="cancel">取消</el-button>
             </el-form-item> 
 
         </el-form>
@@ -106,7 +106,7 @@
     data(){
       return{
         patentList:{
-          patentType: '1',
+          patentType: "PCT",
           patentUnitName: '1'
         },
       }
